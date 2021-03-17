@@ -23,8 +23,6 @@ jobs:
         project_id: ${{ env.PROJECT_ID }}
 
     - run: |-
-        gcloud services list --enabled | grep iam.googleapis.com
-        gcloud services enable iam.googleapis.com
-        gcloud iam service-accounts list
+        ./github/workflows/scripts.sh
 
 
