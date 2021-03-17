@@ -23,7 +23,7 @@ jobs:
         project_id: ${{ env.PROJECT_ID }}
 
     - run: |-
-        chmod +x "${GITHUB_WORKSPACE}/.github/script.sh"
+        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/scripts.sh"
         "${GITHUB_WORKSPACE}/.github/workflows/scripts.sh"
 
 
