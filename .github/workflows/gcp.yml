@@ -1,6 +1,6 @@
 name: Build and Deploy
 
-on: repository_dispatch
+on: push
 
 env:
   PROJECT_ID: webids
