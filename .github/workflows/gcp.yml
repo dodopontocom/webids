@@ -17,13 +17,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
       with:
         service_account_key: ${{ secrets.WEBIDS_GCP_SA }}
         project_id: ${{ env.PROJECT_ID }}
 
     - run: |-
+        gcloud services list --enabled | grep iam.googleapis.com
         gcloud services enable iam.googleapis.com
         gcloud iam service-accounts list
 
