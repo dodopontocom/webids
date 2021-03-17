@@ -21,9 +21,7 @@ jobs:
         service_account_key: ${{ secrets.WEBIDS_GCP_SA }}
         project_id: ${{ env.PROJECT_ID }}
 
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
     - run: |-
-        gcloud --version
+        gcloud iam service-accounts list
 
 
