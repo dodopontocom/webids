@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [[ $(gcloud services list --enabled | grep iam.googleapis.com) ]]
 then
     echo "iam api is enabled"
