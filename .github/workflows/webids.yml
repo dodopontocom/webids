@@ -23,6 +23,7 @@ jobs:
         project_id: ${{ env.PROJECT_ID }}
 
     - run: |-
+        if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
         chmod +x "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
         "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
 
