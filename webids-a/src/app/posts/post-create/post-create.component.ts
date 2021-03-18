@@ -5,7 +5,10 @@ import { Component } from '@angular/core';
   templateUrl:'./post-create.component.html'
 })
 export class PostCreateComponent {
-  onSavePost() {
-    alert("olá")
+
+  newPost = '';
+
+  onAddPost() {
+    this.newPost = "The user\'s Post";
   }
 }
