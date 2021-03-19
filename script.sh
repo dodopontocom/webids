@@ -1,5 +1,6 @@
-#!/binbash
+#!/bin/bash
 
-  nvm install --lts
-  npm install -g @angular/cli
-  npm install -g npm@6
+npm install -g @angular/cli
+npm install -g npm@6
+
+nvm install --lts
