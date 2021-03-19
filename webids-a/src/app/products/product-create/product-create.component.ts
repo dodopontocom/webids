@@ -7,12 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ProductCreateComponent {
   enteredTitle = "";
-  enteredContent = "";
+  enteredDescription = "";
   @Output() productCreated = new EventEmitter();
 
   onAddProduct() {
     const product = {
-      content: this.enteredContent,
+      description: this.enteredDescription,
       title: this.enteredTitle
     };
     this.productCreated.emit(product);
