@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { Product } from '../product.model';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -7,6 +9,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ProductListComponent {
 
-  @Input() products = [];
+  @Input() products: Product[] = [];
 
 }

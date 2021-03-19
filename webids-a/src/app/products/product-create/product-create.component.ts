@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+import { Product } from '../product.model'
+
 @Component({
   selector: 'app-product-create',
   templateUrl:'./product-create.component.html',
@@ -8,12 +10,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class ProductCreateComponent {
   enteredTitle = "";
   enteredDescription = "";
+  enteredPrice = "";
   @Output() productCreated = new EventEmitter();
 
   onAddProduct() {
-    const product = {
+    const product: Product = {
+      title: this.enteredTitle,
       description: this.enteredDescription,
-      title: this.enteredTitle
+      price: this.enteredPrice
     };
     this.productCreated.emit(product);
   }

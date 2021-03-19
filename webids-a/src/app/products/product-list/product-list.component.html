@@ -1,9 +1,10 @@
 <mat-accordion multi="true" *ngIf="products.length > 0">
   <mat-expansion-panel *ngFor="let product of products">
   <mat-expansion-panel-header>
-    {{ product.title }} {{ product.description }}
+    {{ product.title }}
   </mat-expansion-panel-header>
-  {{ product.description }}
+  <p>{{ product.description }}</p>
+  <p>price: {{ product.price }}</p>
   </mat-expansion-panel>
 </mat-accordion>
 
