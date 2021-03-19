@@ -15,6 +15,9 @@ export class ProductCreateComponent {
   @Output() productCreated = new EventEmitter();
 
   onAddProduct(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
     const product: Product = {
       title: form.value.title,
       description: form.value.description,

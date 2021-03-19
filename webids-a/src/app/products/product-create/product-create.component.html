@@ -2,16 +2,25 @@
   <form (submit)="onAddProduct(productForm)" #productForm="ngForm">
     <mat-form-field>
       <input matInput type="text"
-        name="title" ngModel>
+        name="title" ngModel
+        required minlength="3"
+        #title="ngModel">
+      <mat-error *ngIf="title.invalid">Enter a Title (min length of 3 characters)</mat-error>
     </mat-form-field>
     <mat-form-field>
       <textarea matInput type="text"
         name="description" rows="2"
-        ngModel placeholder="Full description of this item..."></textarea>
+        ngModel placeholder="Full description of this item..."
+        required minlength="8"
+        #description="ngModel">
+      </textarea>
+      <mat-error *ngIf="description.invalid">Enter a Description (min length of 8 characters)</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text"
-        name="price" ngModel>
+        name="price" ngModel
+        required #price="ngModel">
+      <mat-error *ngIf="price.invalid">Enter the Product's price</mat-error>
     </mat-form-field>
     <button mat-raised-button
       color="accent"
