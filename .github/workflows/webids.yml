@@ -2,9 +2,8 @@ name: Build and Deploy
 
 on:
   push:
-    branches:
-      - main
-      - dev
+    branches-ignore: main
+
 env:
   PROJECT_ID: webids
   
