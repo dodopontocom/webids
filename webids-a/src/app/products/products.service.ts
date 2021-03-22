@@ -34,7 +34,12 @@ export class ProductsService {
         description: description,
         price: price
       };
-      this.products.push(product);
-      this.productsUpdated.next([...this.products]);
+      this.http
+        .post<{ message: string }>('https://3000-pink-guanaco-1wa1wuj6.ws-us03.gitpod.io/api/products', product)
+        .subscribe((responseData) => {
+          console.log(responseData.message);
+          this.products.push(product);
+          this.productsUpdated.next([...this.products]);
+        });
     }
 }
