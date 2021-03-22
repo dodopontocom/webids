@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
-import { Product } from '../product.model'
 import { NgForm } from '@angular/forms';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-product-create',
@@ -12,17 +12,18 @@ export class ProductCreateComponent {
   enteredTitle = "";
   enteredDescription = "";
   enteredPrice = "";
-  @Output() productCreated = new EventEmitter();
+
+  constructor(public productsService: ProductsService){
+
+  }
 
   onAddProduct(form: NgForm) {
     if (form.invalid) {
       return;
     }
-    const product: Product = {
-      title: form.value.title,
-      description: form.value.description,
-      price: form.value.price
-    };
-    this.productCreated.emit(product);
+    this.productsService.addProduct(form.value.title,
+      form.value.description,
+      form.value.price);
+    form.resetForm();
   }
 }
