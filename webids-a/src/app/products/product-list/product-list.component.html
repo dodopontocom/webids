@@ -7,7 +7,7 @@
   <p>price: {{ product.price }}</p>
   <mat-action-row>
     <button mat-raised-button color="primary">EDIT</button>
-    <button mat-raised-button color="warn">DELETE</button>
+    <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
   </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

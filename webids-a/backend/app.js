@@ -52,4 +52,12 @@ app.get('/api/products', (req, res, next) => {
     });
 });
 
+app.delete('/api/products/:id', (req, res, next) => {
+  Product.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result)
+    res.status(200).json({ message: 'Product Deleted' });
+  });
+  console.log(req.params.id);
+});
+
 module.exports = app;

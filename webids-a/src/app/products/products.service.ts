@@ -52,5 +52,12 @@ export class ProductsService {
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
         });
-    }
+  }
+
+  deleteProduct(productId: string) {
+    this.http.delete('http://35.226.103.232:3000/api/products/' + productId)
+      .subscribe(() => {
+        console.log('Deleted');
+      });
+  }
 }
