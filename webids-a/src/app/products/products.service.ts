@@ -58,6 +58,9 @@ export class ProductsService {
     this.http.delete('http://35.226.103.232:3000/api/products/' + productId)
       .subscribe(() => {
         console.log('Deleted');
+        const updatedProducts = this.products.filter(product => product.id !== productId);
+        this.products = updatedProducts;
+        this.productsUpdated.next([...this.products]);
       });
   }
 }
