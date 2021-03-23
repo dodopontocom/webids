@@ -9,7 +9,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers",
     "Origin, X-Request-With",
-    "Content-Type, Accept"
+    "Content-Type, Accept, Authorization, X-Requested-With, application/x-www-form-urlencoded, charset=UTF-8"
+}
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
   next();
