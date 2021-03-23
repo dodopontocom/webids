@@ -14,7 +14,7 @@ export class ProductsService {
 
   getProducts() {
     //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/products')
-    this.http.get<{mesage: string, products: Product[]}>('http://localhost:3000/api/products')
+    this.http.get<{mesage: string, products: Product[]}>('http://0.0.0.0:3000/api/products')
       .subscribe((productData) => {
         this.products = productData.products;
         this.productsUpdated.next([...this.products]);
@@ -35,7 +35,7 @@ export class ProductsService {
         price: price
       };
       this.http
-        .post<{ message: string }>('http://localhost:3000/api/products', product)
+        .post<{ message: string }>('http://0.0.0.0:3000/api/products', product)
         .subscribe((responseData) => {
           console.log(responseData.message);
           this.products.push(product);
