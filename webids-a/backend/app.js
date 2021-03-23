@@ -1,8 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Product = require('./models/product');
+
+require('dotenv').config();
+
 const app = express();
 
-const Product = require('./models/product');
+mongoose.connect(process.env.MONGO_ATLAS_STRING)
+  .then(() => {
+    console.log('Connected to the database')
+  })
+  .catch(() => {
+    console.log('Connection failed')
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -22,7 +33,7 @@ app.post("/api/products", (req, res, next) => {
     description: req.body.description,
     price: req.body.price
   });
-  console.log(product);
+  product.save();
   res.status(201).json({
     message: 'Post added successfully'
   });
