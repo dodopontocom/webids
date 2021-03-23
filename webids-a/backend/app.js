@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.post("/api/products", (req, res, next) => {
   const product = req.body;
-  console.log();
+  console.log(product);
   res.status(201).json({
     message: 'Post added successfully'
   });
