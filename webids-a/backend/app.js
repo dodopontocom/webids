@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 
-require('dotenv').config();
+require('dotenv').config({
+  path: __dirname + '/.env'
+});
 
 const app = express();
 
