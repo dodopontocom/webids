@@ -46,9 +46,11 @@ export class ProductsService {
         price: price
       };
       this.http
-        .post<{ message: string }>('http://35.226.103.232:3000/api/products', product)
+        .post<{ message: string, productId: string }>('http://35.226.103.232:3000/api/products', product)
         .subscribe((responseData) => {
           console.log(responseData.message);
+          const id = responseData.productId;
+          product.id = id;
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
         });
