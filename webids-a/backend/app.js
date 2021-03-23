@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+const Product = require('./models/product');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -15,7 +17,11 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/products", (req, res, next) => {
-  const product = req.body;
+  const product = new Product({
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price
+  });
   console.log(product);
   res.status(201).json({
     message: 'Post added successfully'
