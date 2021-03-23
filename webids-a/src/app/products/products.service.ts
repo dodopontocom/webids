@@ -14,7 +14,7 @@ export class ProductsService {
 
   getProducts() {
     //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/products')
-    this.http.get<{mesage: string, products: Product[]}>('http://localhost/api/products')
+    this.http.get<{mesage: string, products: Product[]}>('http://localhost:3000/api/products')
       .subscribe((productData) => {
         this.products = productData.products;
         this.productsUpdated.next([...this.products]);
