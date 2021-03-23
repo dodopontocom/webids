@@ -42,18 +42,14 @@ app.post("/api/products", (req, res, next) => {
 });
 
 app.get('/api/products', (req, res, next) => {
-  const products = [
-    {
-      id: 'adsoij2',
-      title: 'prod1',
-      description: 'abc',
-      price: '1'
-    }
-  ];
-  res.status(200).json({
-    message: 'Products fetched successfully',
-    products: products
-  });
+  Product.find()
+    .then(documents => {
+      res.status(200).json({
+        message: 'Products fetched successfully',
+        products: documents
+      });
+      console.log(documents)
+    });
 });
 
 module.exports = app;
