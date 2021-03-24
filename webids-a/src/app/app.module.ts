@@ -15,6 +15,7 @@ import { ProductCreateComponent } from './products/product-create/product-create
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
