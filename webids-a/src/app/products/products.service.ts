@@ -4,6 +4,10 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment'
+
+const GCP_IP = environment.GCP_EXTERNAL_IP
+
 @Injectable({providedIn: 'root'})
 export class ProductsService {
   private products: Product[] = [];
@@ -15,7 +19,7 @@ export class ProductsService {
 
   getProducts() {
     //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/products')
-    this.http.get<{mesage: string, products: any }>('http://35.226.103.232:3000/api/products')
+    this.http.get<{mesage: string, products: any }>('http://' + GCP_IP + ':3000/api/products')
       .pipe(map((productData) => {
         return productData.products.map(product => {
           return {
@@ -46,7 +50,7 @@ export class ProductsService {
         price: price
       };
       this.http
-        .post<{ message: string, productId: string }>('http://35.226.103.232:3000/api/products', product)
+        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/products', product)
         .subscribe((responseData) => {
           console.log(responseData.message);
           const id = responseData.productId;
@@ -57,7 +61,7 @@ export class ProductsService {
   }
 
   deleteProduct(productId: string) {
-    this.http.delete('http://35.226.103.232:3000/api/products/' + productId)
+    this.http.delete('http://'+ GCP_IP +':3000/api/products/' + productId)
       .subscribe(() => {
         console.log('Deleted');
         const updatedProducts = this.products.filter(product => product.id !== productId);
