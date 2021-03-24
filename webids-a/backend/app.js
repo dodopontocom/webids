@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers",
     "Content-Type"
   );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
   next();
 });
 
@@ -42,6 +42,18 @@ app.post("/api/products", (req, res, next) => {
       productId: cretedProduct._id
     });
   });
+});
+
+app.put('/api/posts/:id', (req, res, next) => {
+  const product = new Product({
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price
+  });
+  Product.updateOne({_id: req.params.id}, product).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful"});
+  })
 });
 
 app.get('/api/products', (req, res, next) => {

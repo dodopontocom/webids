@@ -36,13 +36,21 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
-  onAddProduct(form: NgForm) {
+  onSaveProduct(form: NgForm) {
     if (form.invalid) {
       return;
     }
-    this.productsService.addProduct(form.value.title,
-      form.value.description,
-      form.value.price);
+    if (this.mode === 'create') {
+      this.productsService.addProduct(form.value.title,
+        form.value.description,
+        form.value.price);
+    } else {
+      this.productsService.updateProduct(this.productId,
+        form.value.title,
+        form.value.description,
+        form.value.price
+      );
+    }
     form.resetForm();
   }
 }

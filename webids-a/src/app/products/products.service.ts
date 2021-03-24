@@ -64,6 +64,19 @@ export class ProductsService {
         });
   }
 
+  updateProduct(id: string, title: string, description: string, price: string) {
+    const product: Product = {
+      id: id,
+      title: title,
+      description: description,
+      price: price
+    };
+    this.http
+      .put('http://'+ GCP_IP +':3000/api/products/' + id, product)
+      .subscribe(response => console.log(response));
+
+  }
+
   deleteProduct(productId: string) {
     this.http.delete('http://'+ GCP_IP +':3000/api/products/' + productId)
       .subscribe(() => {
