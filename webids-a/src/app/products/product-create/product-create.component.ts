@@ -1,20 +1,39 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, OnInit } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 import { ProductsService } from '../products.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Product } from '../product.model';
 
 @Component({
   selector: 'app-product-create',
   templateUrl:'./product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
-export class ProductCreateComponent {
+export class ProductCreateComponent implements OnInit {
   enteredTitle = "";
   enteredDescription = "";
   enteredPrice = "";
+  product: Product;
 
-  constructor(public productsService: ProductsService){
+  private mode = "create";
+  private productId: string;
 
+  constructor(public productsService: ProductsService, public route: ActivatedRoute){
+
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('productId')) {
+        this.mode = "edit";
+        this.productId = paramMap.get('productId');
+        this.product = this.productsService.getProduct(this.productId);
+      } else {
+        this.mode = "create";
+        this.productId = null;
+      }
+    });
   }
 
   onAddProduct(form: NgForm) {

@@ -40,6 +40,10 @@ export class ProductsService {
     return this.productsUpdated.asObservable();
   }
 
+  getProduct(id: string) {
+    return {...this.products.find(p => p.id === id)};
+  }
+
   addProduct(title: string,
     description: string,
     price: string) {

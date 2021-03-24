@@ -6,7 +6,7 @@
   <p>{{ product.description }}</p>
   <p>price: {{ product.price }}</p>
   <mat-action-row>
-    <button mat-raised-button color="primary">EDIT</button>
+    <a mat-raised-button color="primary" [routerLink]="['/edit', product.id">EDIT</button>
     <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
   </mat-action-row>
   </mat-expansion-panel>
