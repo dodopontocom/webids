@@ -32,6 +32,5 @@ jobs:
         "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
     - name: Create Dev Box
       run: |
-          echo ${service_account_key} > ${TF_VAR_key}
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
           "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
