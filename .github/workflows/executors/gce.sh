@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 terraform  --version
-path="../../../cloud"
-ls ${path}
+path="${GITHUB_WORKSPACE}/cloud"
+cd ${path}
+terraform plan
