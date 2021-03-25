@@ -6,13 +6,12 @@ export APP_NAME="webids"
 
 export GCLOUD_APP_BUCKET_CLASS="standard"
 export GCLOUD_STORAGE_BASE_URL="https://storage.cloud.google.com"
-export GCLOUD_APP_BUCKET_NAME="web-construtora-cp-bucket"
+export GCLOUD_APP_BUCKET_NAME="webids-bucket"
 
 # GCLOUD ENV VARS
 export GCLOUD_PROJECT_ID="webids"
 export GCLOUD_JSON_KEY_PATH="${GITHUB_WORKSPACE}/cloud/credentials/credential.json"
 
-export GCLOUD_TF_BUCKET_NAME="tf-bkend"
 export GCLOUD_PROJECT_REGION="us-central1"
 
 export DOCKER_REGISTRY_SECRET_NAME="gcr-secret"
