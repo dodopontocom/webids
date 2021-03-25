@@ -3,7 +3,7 @@
 source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
 terraform_path="${GITHUB_WORKSPACE}/cloud/terraform"
 
-echo ${service_account_key}
+echo ${service_account_key} > ${TF_VAR_key}
 
 cd ${terraform_path}
 terraform init
