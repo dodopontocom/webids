@@ -8,3 +8,5 @@ then
 fi
 
 gcloud iam service-accounts list
+
+terraform --version
