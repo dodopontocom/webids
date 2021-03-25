@@ -9,6 +9,7 @@ on:
 
 env:
   PROJECT_ID: webids
+  WEBIDS_GCP_SA: ${{ secrets.WEBIDS_GCP_SA }}
   
 jobs:
   setup-build-publish-deploy:
@@ -36,6 +37,6 @@ jobs:
           export
           source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
           export
-          echo "${service_account_key}" > ${GCLOUD_JSON_KEY_PATH} 
+          echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH} 
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
           "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
