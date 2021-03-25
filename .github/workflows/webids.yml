@@ -34,9 +34,7 @@ jobs:
         "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
     - name: Create Dev Box
       run: |
-          export
           source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
-          export
           echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH} 
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
           "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
