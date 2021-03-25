@@ -6,4 +6,4 @@ terraform_path="${GITHUB_WORKSPACE}/cloud/terraform"
 cd ${terraform_path}
 terraform init
 terraform plan
-terraform apply
+terraform apply --auto-approve
