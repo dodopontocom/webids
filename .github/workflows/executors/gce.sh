@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-echo works
+terraform  --version
+path="../../../cloud"
+ls ${path}
