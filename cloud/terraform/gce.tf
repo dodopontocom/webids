@@ -12,7 +12,7 @@ resource "google_compute_instance" "gcp_lab_instance" {
   zone         = var.zone
 
   labels       = {
-    "env" = "${var.compute_instance_environment}"
+    "env" = $var.compute_instance_environment
   }
   
   attached_disk {
@@ -28,12 +28,12 @@ resource "google_compute_instance" "gcp_lab_instance" {
   
   allow_stopping_for_update = true
   
-  metadata = {
-    MONGO_ATLAS_STRING = "${var.MONGO_ATLAS_STRING}"
-    JWT_KEY = "${var.JWT_KEY}"
-  }
+  //metadata = {
+  //  MONGO_ATLAS_STRING = "${var.MONGO_ATLAS_STRING}"
+  //  JWT_KEY = "${var.JWT_KEY}"
+  //}
 
-  metadata_startup_script = file(var.startup_script)
+  //metadata_startup_script = file(var.startup_script)
 
   network_interface {
     network = "default"
