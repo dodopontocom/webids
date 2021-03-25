@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - wip-gcp
 
 env:
   PROJECT_ID: webids
