@@ -30,3 +30,7 @@ jobs:
       run: |
         chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
         "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
+    - name: Create Dev Box
+      run: |
+              chmod +x "${GITHUB_WORKSPACES/.github/workflows/executors/gce.sh}"
+              "${GITHUB_WORKSPACES/.github/workflows/executors/gce.sh}"
