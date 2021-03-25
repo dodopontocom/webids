@@ -25,7 +25,7 @@ jobs:
         service_account_key: ${{ secrets.WEBIDS_GCP_SA }}
         project_id: ${{ env.PROJECT_ID }}
         export_default_credentials: true
-        credentials_file_path: "./cloud/credentials/"
+        credentials_file_path: ./cloud/credentials/
 
     - name: Setup GCP
       if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
