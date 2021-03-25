@@ -27,5 +27,5 @@ jobs:
     - name: Setup GCP
       if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
       run: |
-        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
-        "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
+        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
+        "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
