@@ -14,4 +14,11 @@ then
         gcloud services enable compute.googleapis.com
 fi
 
+if [[ $(gcloud services list --enabled | grep storage.googleapis.com) ]]
+then
+    echo "storage api is enabled"
+    else
+        gcloud services enable storage.googleapis.com
+fi
+
 gcloud iam service-accounts list
