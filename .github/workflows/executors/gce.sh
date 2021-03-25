@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-terraform  --version
-path="${GITHUB_WORKSPACE}/cloud"
-cd ${path}
+source ${GITHUB_WORKSPACE}/.workflows/cicd-definitions.sh
+terraform_path="${GITHUB_WORKSPACE}/cloud/terraform"
+
+cd ${terraform_path}
 terraform plan
