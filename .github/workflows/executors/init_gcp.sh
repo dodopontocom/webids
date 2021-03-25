@@ -7,6 +7,11 @@ then
         gcloud services enable iam.googleapis.com
 fi
 
-gcloud iam service-accounts list
+if [[ $(gcloud services list --enabled | grep compute.googleapis.com) ]]
+then
+    echo "compute engine api is enabled"
+    else
+        gcloud services enable compute.googleapis.com
+fi
 
-terraform --version
+gcloud iam service-accounts list
