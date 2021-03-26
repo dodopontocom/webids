@@ -14,7 +14,7 @@ else
     gsutil mb -l ${GCLOUD_PROJECT_REGION} -p ${PROJECT_ID} -c standard gs://${GCLOUD_APP_BUCKET_NAME}
 fi
 echo ${hasBucket}
-if [[ "${hasBucket}" -eq "true" ]]; then
+if [[ "${hasBucket}" == "true" ]]; then
     cd ${terraform_path}
     terraform init --backend-config="bucket=${GCLOUD_APP_BUCKET_NAME}" --backend-config="prefix=tf-state"
     terraform plan
