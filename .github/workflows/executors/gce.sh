@@ -10,7 +10,7 @@ gsutil ls gs://${GCLOUD_APP_BUCKET_NAME}
 if [[ "$?" -eq "0" ]]; then
     echo ok
 else
-    echo hum
+    gsutil mb -l ${GCLOUD_PROJECT_REGION}-a -p ${PROJECT_ID} -c standard gs://${GCLOUD_APP_BUCKET_NAME}
 fi
 
 if [[ "${hasBucket}" -eq "true" ]]; then
