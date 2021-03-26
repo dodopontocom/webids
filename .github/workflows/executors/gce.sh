@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
+commit_message=$(git log --format=%B -n 1 ${{ github.event.after }})
+echo "${commit_message}"
+
 source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
 echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH}
 
@@ -17,7 +21,7 @@ if [[ "${hasBucket}" == "true" ]]; then
     cd ${terraform_path}
     terraform init --backend-config="bucket=${GCLOUD_APP_BUCKET_NAME}" --backend-config="prefix=tf-state"
     terraform plan
-    terraform apply --auto-approve
+    terraform destroy --auto-approve
 else
     echo "skip terraform step for now!"
 fi
