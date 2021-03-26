@@ -7,7 +7,7 @@ terraform_path="${GITHUB_WORKSPACE}/cloud/terraform"
 hasBucket=false
 
 gsutil ls gs://${GCLOUD_APP_BUCKET_NAME}
-if [[ "$?" -eq "0"]]; then
+if [[ "$?" -eq "0" ]]; then
     echo ok
 else
     echo hum
