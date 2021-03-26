@@ -17,7 +17,7 @@ if [[ "${hasBucket}" == "true" ]]; then
     cd ${terraform_path}
     terraform init --backend-config="bucket=${GCLOUD_APP_BUCKET_NAME}" --backend-config="prefix=tf-state"
     terraform plan
-    terraform destroy --auto-approve
+    terraform apply --auto-approve
 else
     echo "skip terraform step for now!"
 fi
