@@ -20,8 +20,10 @@ if [[ "${hasBucket}" == "true" ]]; then
     terraform init --backend-config="bucket=${GCLOUD_APP_BUCKET_NAME}" --backend-config="prefix=tf-state"
     terraform plan
     if [[ -z "${destroy}" ]]; then
+        echo "terraform apply flag was detected..."
         terraform apply --auto-approve
     else
+        echo "terraform destroy flag was detected..."
         terraform destroy --auto-approve
     fi
 else
