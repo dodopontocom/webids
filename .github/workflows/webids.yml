@@ -47,4 +47,4 @@ jobs:
       if: "contains( env.commitmsg, '[terraform-destroy]')"
       run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
-          "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh destroy"
+          "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh" "destroy"
