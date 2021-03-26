@@ -33,7 +33,7 @@ resource "google_compute_instance" "gcp_lab_instance" {
   //  JWT_KEY = "${var.JWT_KEY}"
   //}
 
-  //metadata_startup_script = file(var.startup_script)
+  metadata_startup_script = file(var.startup_script)
 
   network_interface {
     network = "default"
@@ -47,26 +47,13 @@ resource "google_compute_instance" "gcp_lab_instance" {
   // Apply the firewall rule to allow external IPs to access this instance
   tags = ["http-server", "https-server"]
 }
-resource "google_compute_firewall" "http-server" {
-  name    = "default-allow-http"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "4200", "3000", "22"]
-  }
-  // Allow traffic from everywhere to instances with an http-server tag
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["http-server", "https-server"]
-}
 output "ip" {
   value = google_compute_instance.gcp_lab_instance.network_interface.0.access_config.0.nat_ip
 }
-
 resource "google_compute_disk" "default_persistent_disk" {
   name                      = var.ssd_name
   type                      = "pd-ssd"
   size                      = "10"
-  zone                      = "us-central1-a"
+  zone                      = var.zone
   physical_block_size_bytes = 4096
 }
