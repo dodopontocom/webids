@@ -6,7 +6,7 @@ echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH}
 terraform_path="${GITHUB_WORKSPACE}/cloud/terraform"
 hasBucket=false
 
-gsutil ls gs://${GCLOUD_APP_BUCKET_NAME})
+gsutil ls gs://${GCLOUD_APP_BUCKET_NAME}
 if [[ "$?" -eq "0"]]; then
     echo ok
 else
