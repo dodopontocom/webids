@@ -31,7 +31,7 @@ export TF_VAR_cluster_count="3"
 export TF_VAR_key="${GCLOUD_JSON_KEY_PATH}"
 
 export TF_VAR_compute_instance_environment="dev"
-export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"
+export TF_VAR_ubuntu_image="debian-cloud/debian-10"
 export TF_VAR_startup_script="${GITHUB_WORKSPACE}/cloud/scripts/setup-env.sh"
 export TF_VAR_ssd_name="data-ssd"
 
