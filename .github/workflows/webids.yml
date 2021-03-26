@@ -28,6 +28,21 @@ jobs:
         service_account_key: ${{ secrets.WEBIDS_GCP_SA }}
         project_id: ${{ env.PROJECT_ID }}
         export_default_credentials: true
+    
+    - name : GITHUB CONTEXT
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+
+    - name: get commit message
+      run: |
+         echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
+    - name: show commit message
+      run : echo $commitmsg
+
+    - name: step1
+      if: contains( env.commitmsg , 'try' )
+      run: echo hello
 
     - name: Setup GCP
       if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
