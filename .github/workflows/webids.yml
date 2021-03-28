@@ -43,7 +43,7 @@ jobs:
       run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
           "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
-    - name: Finish Dev Box
+    - name: Shutdown Dev Box
       if: "contains( env.commitmsg, '[terraform-destroy]')"
       run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
