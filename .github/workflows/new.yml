@@ -1,0 +1,20 @@
+  
+name: Two
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+env:
+  PROJECT_ID: webids
+  WEBIDS_GCP_SA: ${{ secrets.WEBIDS_GCP_SA }}
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  
+jobs:
+  setup-build-test:
+    name: Setup, Build and Test
+    runs-on: ubuntu-latest
+    environment: development
+    strategy:
+      fail-fast: false
