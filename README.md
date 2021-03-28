@@ -3,6 +3,7 @@
 
 [WIP]
 
-|- cloud  
-|-- terraform  
-|-- scripts  
++-- cloud
+| +-- terraform
+| +-- scripts  
+| +-- credentials  
