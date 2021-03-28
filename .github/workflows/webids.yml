@@ -2,16 +2,23 @@ name: Build and Deploy
 
 on:
   push:
-    branches-ignore: main
+    branches:
+      - main
+      - dev
+      - wip-gcp
 
 env:
   PROJECT_ID: webids
+  WEBIDS_GCP_SA: ${{ secrets.WEBIDS_GCP_SA }}
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  setup-build-test:
+    name: Setup, Build and Test
     runs-on: ubuntu-latest
-    environment: production
+    environment: development
+    strategy:
+      fail-fast: false
 
     steps:
     - name: Checkout
@@ -21,9 +28,23 @@ jobs:
       with:
         service_account_key: ${{ secrets.WEBIDS_GCP_SA }}
         project_id: ${{ env.PROJECT_ID }}
+        export_default_credentials: true
+
+    - name: get commit message
+      run: |
+         echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
 
     - name: Setup GCP
-      if: "! contains(toJSON(github.event.commits.*.msg), '[skip-ci]')"
       run: |
-        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
-        "${GITHUB_WORKSPACE}/.github/workflows/init_gcp.sh"
+        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
+        "${GITHUB_WORKSPACE}/.github/workflows/executors/init_gcp.sh"
+    - name: Create Dev Box
+      if: "contains( env.commitmsg, '[terraform-apply]')"
+      run: |
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
+          "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
+    - name: Shutdown Dev Box
+      if: "contains( env.commitmsg, '[terraform-destroy]')"
+      run: |
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh"
+          "${GITHUB_WORKSPACE}/.github/workflows/executors/gce.sh" "destroy"
