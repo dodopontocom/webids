@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment'
+import { Router } from '@angular/router';
 
 const GCP_IP = environment.GCP_EXTERNAL_IP
 
@@ -13,7 +14,7 @@ export class ProductsService {
   private products: Product[] = [];
   private productsUpdated = new Subject<Product[]>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
 
   }
 
@@ -66,6 +67,7 @@ export class ProductsService {
           product.id = id;
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
+          this.router.navigate(["/"]);
         });
   }
 
@@ -84,6 +86,7 @@ export class ProductsService {
         updatedProducts[oldProductIndex] = product;
         this.products = updatedProducts;
         this.productsUpdated.next([...this.products]);
+        this.router.navigate(["/"]);
       });
 
   }

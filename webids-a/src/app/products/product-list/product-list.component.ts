@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class ProductListComponent implements OnInit, OnDestroy{
 
   products: Product[] = [];
+  isLoading = false;
   private productsSub: Subscription;
 
   constructor(public productsService: ProductsService) {
@@ -19,9 +20,11 @@ export class ProductListComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(){
+    this.isLoading = true;
     this.productsService.getProducts();
     this.productsSub = this.productsService.getProductsUpdatedListener()
       .subscribe((products: Product[]) => {
+        this.isLoading = false;
         this.products = products;
       });
   }
