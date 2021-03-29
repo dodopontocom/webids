@@ -32,13 +32,13 @@
         Pick Images
       </button>
       <input type="file" #filePicker (change)="onImagePicked($event)">
-      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
-        <img [src]="imagePreview" [alt]="form.value.title">
-      </div>
       <button mat-raised-button
         color="accent"
         type="submit">Add Product
       </button>
+      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+        <img [src]="imagePreview" [alt]="form.value.title">
+      </div>
     </mat-action-row>
   </form>
 </mat-card>
