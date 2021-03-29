@@ -41,7 +41,12 @@ export class ProductsService {
   }
 
   getProduct(id: string) {
-    return {...this.products.find(p => p.id === id)};
+    return this.http.get<{
+      _id: string,
+      title: string,
+      description: string,
+      price: string }>(
+        'http://'+ GCP_IP +':3000/api/v1/products/' + id);
   }
 
   addProduct(title: string,
@@ -73,7 +78,13 @@ export class ProductsService {
     };
     this.http
       .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, product)
-      .subscribe(response => console.log(response));
+      .subscribe(response => {
+        const updatedProducts = [...this.products];
+        const oldProductIndex = updatedProducts.findIndex(p => p.id === product.id);
+        updatedProducts[oldProductIndex] = product;
+        this.products = updatedProducts;
+        this.productsUpdated.next([...this.products]);
+      });
 
   }
 

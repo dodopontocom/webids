@@ -68,6 +68,16 @@ app.get('/api/v1/products', (req, res, next) => {
     });
 });
 
+add.get('/api/v1/products/:id', (req, res, next) => {
+  Product.findById(req.params.id).then(product => {
+    if(product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({message: "Post no found"});
+    }
+  });
+});
+
 app.delete('/api/v1/products/:id', (req, res, next) => {
   Product.deleteOne({_id: req.params.id}).then(result => {
     console.log(result)

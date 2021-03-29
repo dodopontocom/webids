@@ -28,7 +28,13 @@ export class ProductCreateComponent implements OnInit {
       if (paramMap.has('productId')) {
         this.mode = "edit";
         this.productId = paramMap.get('productId');
-        this.product = this.productsService.getProduct(this.productId);
+        this.productsService.getProduct(this.productId).subscribe(productData => {
+          this.product = {id: productData._id,
+            title: productData.title,
+            description: productData.description,
+            price: productData.price
+          };
+        });
       } else {
         this.mode = "create";
         this.productId = null;
