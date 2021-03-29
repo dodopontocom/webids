@@ -68,7 +68,7 @@ app.get('/api/v1/products', (req, res, next) => {
     });
 });
 
-add.get("/api/v1/products/:id", (req, res, next) => {
+app.get("/api/v1/products/:id", (req, res, next) => {
   Product.findById(req.params.id).then(product => {
     if (product) {
       res.status(200).json(product);
