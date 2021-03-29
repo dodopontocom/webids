@@ -68,12 +68,12 @@ app.get('/api/v1/products', (req, res, next) => {
     });
 });
 
-add.get('/api/v1/products/:id', (req, res, next) => {
+add.get("/api/v1/products/:id", (req, res, next) => {
   Product.findById(req.params.id).then(product => {
-    if(product) {
+    if (product) {
       res.status(200).json(product);
     } else {
-      res.status(404).json({message: "Post no found"});
+      res.status(404).json({message: "Product no found"});
     }
   });
 });
