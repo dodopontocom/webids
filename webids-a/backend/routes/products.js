@@ -26,16 +26,21 @@ const storage = multer.diskStorage({
 });
 
 router.post("", multer({storage: storage}).single("image"), (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   const product = new Product({
     title: req.body.title,
     description: req.body.description,
-    price: req.body.price
+    price: req.body.price,
+    imagePath: url + "/images/" + req.file.filename
   });
-  product.save().then(cretedProduct => {
-    console.log(cretedProduct);
+  product.save().then(createdProduct => {
+    console.log(createdProduct);
     res.status(201).json({
       message: 'Post added successfully',
-      productId: cretedProduct._id
+      product: {
+        ...createdProduct,
+        id: createdProduct._id
+      }
     });
   });
 });

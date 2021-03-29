@@ -44,7 +44,8 @@ export class ProductCreateComponent implements OnInit {
           this.product = {id: productData._id,
             title: productData.title,
             description: productData.description,
-            price: productData.price
+            price: productData.price,
+            imagePath: null
           };
           this.form.setValue({
             title: this.product.title,

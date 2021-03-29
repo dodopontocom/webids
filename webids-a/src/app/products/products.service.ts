@@ -27,7 +27,8 @@ export class ProductsService {
             title: product.title,
             description: product.description,
             price: product.price,
-            id: product._id
+            id: product._id,
+            imagePath: product.imagePath
           };
         });
       }))
@@ -60,12 +61,15 @@ export class ProductsService {
       productData.append("price", price);
       productData.append("image", image, title);
       this.http
-        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/v1/products', productData)
+        .post<{ message: string, product: Product }>('http://'+ GCP_IP +':3000/api/v1/products', productData)
         .subscribe((responseData) => {
-          const product: Product = {id: responseData.productId,
+          const product: Product = {
+            id: responseData.product.id,
             title: title,
             description: description,
-            price: price}
+            price: price,
+            imagePath: responseData.product.imagePath
+          };
           console.log(responseData.message);
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
@@ -78,7 +82,8 @@ export class ProductsService {
       id: id,
       title: title,
       description: description,
-      price: price
+      price: price,
+      imagePath: null
     };
     this.http
       .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, product)
