@@ -67,8 +67,6 @@ export class ProductsService {
             description: description,
             price: price}
           console.log(responseData.message);
-          const id = responseData.productId;
-          product.id = id;
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
           this.router.navigate(["/"]);
