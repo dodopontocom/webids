@@ -83,7 +83,8 @@ export class ProductCreateComponent implements OnInit {
       this.productsService.addProduct(
         this.form.value.title,
         this.form.value.description,
-        this.form.value.price);
+        this.form.value.price,
+        this.form.value.image);
     } else {
       this.productsService.updateProduct(
         this.productId,

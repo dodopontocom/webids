@@ -52,16 +52,20 @@ export class ProductsService {
 
   addProduct(title: string,
     description: string,
-    price: string) {
-      const product: Product = {
-        id: null,
-        title: title,
-        description: description,
-        price: price
-      };
+    price: string,
+    image: File) {
+      const productData = new FormData();
+      productData.append("title", title);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("image", image, title);
       this.http
-        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/v1/products', product)
+        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/v1/products', productData)
         .subscribe((responseData) => {
+          const product: Product = {id: responseData.productId,
+            title: title,
+            description: description,
+            price: price}
           console.log(responseData.message);
           const id = responseData.productId;
           product.id = id;
