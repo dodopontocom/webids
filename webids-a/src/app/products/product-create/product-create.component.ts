@@ -15,6 +15,7 @@ export class ProductCreateComponent implements OnInit {
   enteredDescription = "";
   enteredPrice = "";
   product: Product;
+  isLoading = false;
 
   private mode = "create";
   private productId: string;
@@ -28,7 +29,9 @@ export class ProductCreateComponent implements OnInit {
       if (paramMap.has('productId')) {
         this.mode = "edit";
         this.productId = paramMap.get('productId');
+        this.isLoading = true;
         this.productsService.getProduct(this.productId).subscribe(productData => {
+          this.isLoading = false;
           this.product = {id: productData._id,
             title: productData.title,
             description: productData.description,
@@ -46,6 +49,7 @@ export class ProductCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.productsService.addProduct(form.value.title,
         form.value.description,
