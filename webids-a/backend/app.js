@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/products", (req, res, next) => {
+app.post("/api/v1/products", (req, res, next) => {
   const product = new Product({
     title: req.body.title,
     description: req.body.description,
@@ -44,7 +44,7 @@ app.post("/api/products", (req, res, next) => {
   });
 });
 
-app.put('/api/products/:id', (req, res, next) => {
+app.put('/api/v1/products/:id', (req, res, next) => {
   const product = new Product({
     _id: req.body.id,
     title: req.body.title,
@@ -57,7 +57,7 @@ app.put('/api/products/:id', (req, res, next) => {
   })
 });
 
-app.get('/api/products', (req, res, next) => {
+app.get('/api/v1/products', (req, res, next) => {
   Product.find()
     .then(documents => {
       res.status(200).json({
@@ -68,7 +68,7 @@ app.get('/api/products', (req, res, next) => {
     });
 });
 
-app.delete('/api/products/:id', (req, res, next) => {
+app.delete('/api/v1/products/:id', (req, res, next) => {
   Product.deleteOne({_id: req.params.id}).then(result => {
     console.log(result)
     res.status(200).json({ message: 'Product Deleted' });

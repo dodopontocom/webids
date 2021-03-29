@@ -18,8 +18,8 @@ export class ProductsService {
   }
 
   getProducts() {
-    //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/products')
-    this.http.get<{mesage: string, products: any }>('http://' + GCP_IP + ':3000/api/products')
+    //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/v1/products')
+    this.http.get<{mesage: string, products: any }>('http://' + GCP_IP + ':3000/api/v1/products')
       .pipe(map((productData) => {
         return productData.products.map(product => {
           return {
@@ -54,7 +54,7 @@ export class ProductsService {
         price: price
       };
       this.http
-        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/products', product)
+        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/v1/products', product)
         .subscribe((responseData) => {
           console.log(responseData.message);
           const id = responseData.productId;
@@ -72,13 +72,13 @@ export class ProductsService {
       price: price
     };
     this.http
-      .put('http://'+ GCP_IP +':3000/api/products/' + id, product)
+      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, product)
       .subscribe(response => console.log(response));
 
   }
 
   deleteProduct(productId: string) {
-    this.http.delete('http://'+ GCP_IP +':3000/api/products/' + productId)
+    this.http.delete('http://'+ GCP_IP +':3000/api/v1/products/' + productId)
       .subscribe(() => {
         console.log('Deleted');
         const updatedProducts = this.products.filter(product => product.id !== productId);
