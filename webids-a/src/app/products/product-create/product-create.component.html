@@ -36,10 +36,10 @@
         color="accent"
         type="submit">Add Product
       </button>
-      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+    </mat-action-row>
+     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
         <img [src]="imagePreview" [alt]="form.value.title">
       </div>
-    </mat-action-row>
   </form>
 </mat-card>
 
