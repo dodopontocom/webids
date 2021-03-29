@@ -44,7 +44,7 @@ app.post("/api/products", (req, res, next) => {
   });
 });
 
-app.put('/api/posts/:id', (req, res, next) => {
+app.put('/api/products/:id', (req, res, next) => {
   const product = new Product({
     _id: req.body.id,
     title: req.body.title,
