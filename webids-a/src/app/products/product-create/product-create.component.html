@@ -26,6 +26,7 @@
       <mat-error *ngIf="price.invalid">Enter the Product's price</mat-error>
     </mat-form-field>
     <button mat-raised-button
+      *ngIg="product.id == ''"
       color="accent"
       type="submit">Add Product
     </button>
