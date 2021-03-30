@@ -67,7 +67,15 @@ router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) 
 });
 
 router.get("", (req, res, next) => {
-  Product.find()
+  const pageSize = +req.query.pagesize; // + sign convert to numbers
+  const currentPage = +req.query.page;
+  const productQuery = Product.find();
+  if (pageSize && currentPage) {
+    productQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  productQuery.find()
     .then(documents => {
       res.status(200).json({
         message: 'Products fetched successfully',

@@ -18,9 +18,11 @@ export class ProductsService {
 
   }
 
-  getProducts() {
+  getProducts(productsPerPage : number, currentPage: number) {
+    const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`;
+
     //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/v1/products')
-    this.http.get<{mesage: string, products: any }>('http://' + GCP_IP + ':3000/api/v1/products')
+    this.http.get<{mesage: string, products: any }>('http://' + GCP_IP + ':3000/api/v1/products' + queryParams)
       .pipe(map((productData) => {
         return productData.products.map(product => {
           return {
