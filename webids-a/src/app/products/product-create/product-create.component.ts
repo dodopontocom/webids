@@ -1,9 +1,10 @@
 import { Component, Output, OnInit } from '@angular/core';
 
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from '../product.model';
+import { mimeType } from './mime-type.validator'
 
 @Component({
   selector: 'app-product-create',
@@ -16,6 +17,8 @@ export class ProductCreateComponent implements OnInit {
   enteredPrice = "";
   product: Product;
   isLoading = false;
+  form: FormGroup;
+  imagePreview: string;
 
   private mode = "create";
   private productId: string;
@@ -25,6 +28,12 @@ export class ProductCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      description: new FormControl(null, {validators: [Validators.required, Validators.minLength(8)]}),
+      price: new FormControl(null, {validators: [Validators.required]}),
+      image: new FormControl(null,{ validators: [Validators.required], asyncValidators: [mimeType]})
+    });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('productId')) {
         this.mode = "edit";
@@ -35,8 +44,15 @@ export class ProductCreateComponent implements OnInit {
           this.product = {id: productData._id,
             title: productData.title,
             description: productData.description,
-            price: productData.price
+            price: productData.price,
+            imagePath: productData.imagePath
           };
+          this.form.setValue({
+            title: this.product.title,
+            description: this.product.description,
+            price: this.product.price,
+            image: this.product.imagePath
+          });
         });
       } else {
         this.mode = "create";
@@ -45,22 +61,41 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
-  onSaveProduct(form: NgForm) {
-    if (form.invalid) {
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+
+    console.log(file);
+    console.log(this.form);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onSaveProduct() {
+    if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.productsService.addProduct(form.value.title,
-        form.value.description,
-        form.value.price);
+      this.productsService.addProduct(
+        this.form.value.title,
+        this.form.value.description,
+        this.form.value.price,
+        this.form.value.image);
     } else {
-      this.productsService.updateProduct(this.productId,
-        form.value.title,
-        form.value.description,
-        form.value.price
+      this.productsService.updateProduct(
+        this.productId,
+        this.form.value.title,
+        this.form.value.description,
+        this.form.value.price,
+        this.form.value.image
       );
     }
-    form.resetForm();
+    this.form.reset();
   }
 }

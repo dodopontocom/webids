@@ -27,7 +27,8 @@ export class ProductsService {
             title: product.title,
             description: product.description,
             price: product.price,
-            id: product._id
+            id: product._id,
+            imagePath: product.imagePath
           };
         });
       }))
@@ -46,43 +47,68 @@ export class ProductsService {
       _id: string,
       title: string,
       description: string,
-      price: string }>(
+      price: string,
+      imagePath: string }>(
         'http://'+ GCP_IP +':3000/api/v1/products/' + id);
   }
 
   addProduct(title: string,
     description: string,
-    price: string) {
-      const product: Product = {
-        id: null,
-        title: title,
-        description: description,
-        price: price
-      };
+    price: string,
+    image: File) {
+      const productData = new FormData();
+      productData.append("title", title);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("image", image, title);
       this.http
-        .post<{ message: string, productId: string }>('http://'+ GCP_IP +':3000/api/v1/products', product)
+        .post<{ message: string, product: Product }>('http://'+ GCP_IP +':3000/api/v1/products', productData)
         .subscribe((responseData) => {
+          const product: Product = {
+            id: responseData.product.id,
+            title: title,
+            description: description,
+            price: price,
+            imagePath: responseData.product.imagePath
+          };
           console.log(responseData.message);
-          const id = responseData.productId;
-          product.id = id;
           this.products.push(product);
           this.productsUpdated.next([...this.products]);
           this.router.navigate(["/"]);
         });
   }
 
-  updateProduct(id: string, title: string, description: string, price: string) {
-    const product: Product = {
-      id: id,
-      title: title,
-      description: description,
-      price: price
-    };
+  updateProduct(id: string, title: string, description: string, price: string, image: File | string) {
+    let productData: Product | FormData;
+    if (typeof(image) === 'object') {
+      productData = new FormData();
+      productData.append("id", id);
+      productData.append("title", title);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("image", image, title);
+    } else {
+      productData = {
+        id: id,
+        title: title,
+        description: description,
+        price: price,
+        imagePath: image
+      };
+    }
+
     this.http
-      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, product)
+      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, productData)
       .subscribe(response => {
         const updatedProducts = [...this.products];
-        const oldProductIndex = updatedProducts.findIndex(p => p.id === product.id);
+        const oldProductIndex = updatedProducts.findIndex(p => p.id === id);
+        const product: Product = {
+          id: id,
+          title: title,
+          description: description,
+          price: price,
+          imagePath: ""
+        };
         updatedProducts[oldProductIndex] = product;
         this.products = updatedProducts;
         this.productsUpdated.next([...this.products]);

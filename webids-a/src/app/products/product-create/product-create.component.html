@@ -1,34 +1,46 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSaveProduct(productForm)" #productForm="ngForm" *ngIf="!isLoading">
+  <form [formGroup]="form" (submit)="onSaveProduct(productForm)" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput type="text"
-        name="title"
-        [ngModel]="product?.title"
-        required minlength="3"
-        #title="ngModel">
-      <mat-error *ngIf="title.invalid">Enter a Title (min length of 3 characters)</mat-error>
+      <input
+        matInput
+        type="text"
+        formControlName="title"
+        placeholder="Product Title">
+      <mat-error *ngIf="form.get('title').invalid">Enter a Title (min length of 3 characters)</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput type="text"
-        name="description" rows="2"
-        [ngModel]="product?.description"
-        placeholder="Description"
-        required minlength="8"
-        #description="ngModel">
+      <textarea
+        matInput
+        type="text"
+        formControlName="description"
+        rows="2"
+        placeholder="Description">
       </textarea>
-      <mat-error *ngIf="description.invalid">Enter a Description (min length of 8 characters)</mat-error>
+      <mat-error *ngIf="form.get('description').invalid">Enter a Description (min length of 8 characters)</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text"
-        name="price"
-        [ngModel]="product?.price"
-        required #price="ngModel">
-      <mat-error *ngIf="price.invalid">Enter the Product's price</mat-error>
+      <input
+        matInput
+        type="text"
+        formControlName="price"
+        placeholder="Initial price">
+      <mat-error *ngIf="form.get('price').invalid">Enter the Product's price</mat-error>
     </mat-form-field>
-    <button mat-raised-button
-      color="accent"
-      type="submit">Add Product
-    </button>
+    <mat-action-row>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        Pick Images
+      </button>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+      <button mat-raised-button
+        color="accent"
+        type="submit">Add Product
+      </button>
+    </mat-action-row>
+     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+        <img [src]="imagePreview" [alt]="form.value.title">
+      </div>
   </form>
 </mat-card>
+
+
