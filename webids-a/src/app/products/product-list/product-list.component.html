@@ -19,7 +19,8 @@
 <mat-paginator
   [length]="totalProducts"
   [pageSize]="productsPerPage"
-  [pageSizeOptions]="pageSizeOptions">
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)">
 
 </mat-paginator>
 <p class="info-text mat-body-1" *ngIf="products.length <= 0 && !isLoading">No Products added!</p>
