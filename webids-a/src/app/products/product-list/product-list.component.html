@@ -17,11 +17,11 @@
   </mat-expansion-panel>
 </mat-accordion>
 <mat-paginator
-  *ngIf="products.length > 0"
   [length]="totalProducts"
   [pageSize]="productsPerPage"
   [pageSizeOptions]="pageSizeOptions"
-  (page)="onChangedPage($event)">
+  (page)="onChangedPage($event)"
+  *ngIf="products.length > 0">
 
 </mat-paginator>
 <p class="info-text mat-body-1" *ngIf="products.length <= 0 && !isLoading">No Products added!</p>
