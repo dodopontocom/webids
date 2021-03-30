@@ -45,12 +45,13 @@ export class ProductCreateComponent implements OnInit {
             title: productData.title,
             description: productData.description,
             price: productData.price,
-            imagePath: null
+            imagePath: productData.imagePath
           };
           this.form.setValue({
             title: this.product.title,
             description: this.product.description,
-            price: this.product.price
+            price: this.product.price,
+            image: this.product.imagePath
           });
         });
       } else {
@@ -91,7 +92,8 @@ export class ProductCreateComponent implements OnInit {
         this.productId,
         this.form.value.title,
         this.form.value.description,
-        this.form.value.price
+        this.form.value.price,
+        this.form.value.image
       );
     }
     this.form.reset();

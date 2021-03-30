@@ -47,7 +47,8 @@ export class ProductsService {
       _id: string,
       title: string,
       description: string,
-      price: string }>(
+      price: string,
+      imagePath: string }>(
         'http://'+ GCP_IP +':3000/api/v1/products/' + id);
   }
 
@@ -77,19 +78,37 @@ export class ProductsService {
         });
   }
 
-  updateProduct(id: string, title: string, description: string, price: string) {
-    const product: Product = {
-      id: id,
-      title: title,
-      description: description,
-      price: price,
-      imagePath: null
-    };
+  updateProduct(id: string, title: string, description: string, price: string, image: File | string) {
+    let productData: Product | FormData;
+    if (typeof(image) === 'object') {
+      productData = new FormData();
+      productData.append("id", id);
+      productData.append("title", title);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("image", image, title);
+    } else {
+      productData = {
+        id: id,
+        title: title,
+        description: description,
+        price: price,
+        imagePath: image
+      };
+    }
+
     this.http
-      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, product)
+      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, productData)
       .subscribe(response => {
         const updatedProducts = [...this.products];
-        const oldProductIndex = updatedProducts.findIndex(p => p.id === product.id);
+        const oldProductIndex = updatedProducts.findIndex(p => p.id === id);
+        const product: Product = {
+          id: id,
+          title: title,
+          description: description,
+          price: price,
+          imagePath: ""
+        };
         updatedProducts[oldProductIndex] = product;
         this.products = updatedProducts;
         this.productsUpdated.next([...this.products]);
