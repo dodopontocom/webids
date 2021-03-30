@@ -13,6 +13,9 @@ export class ProductListComponent implements OnInit, OnDestroy{
 
   products: Product[] = [];
   isLoading = false;
+  totalProducts = 10;
+  productsPerPage = 2;
+  pageSizeOptions = [1,2,5,10];
   private productsSub: Subscription;
 
   constructor(public productsService: ProductsService) {

@@ -16,5 +16,10 @@
   </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+<mat-paginator
+  [length]="totalProducts"
+  [pageSize]="productsPerPage"
+  [pageSizeOptions]="pageSizeOptions">
 
+</mat-paginator>
 <p class="info-text mat-body-1" *ngIf="products.length <= 0 && !isLoading">No Products added!</p>
