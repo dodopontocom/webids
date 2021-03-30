@@ -5,6 +5,9 @@
   <mat-expansion-panel-header>
     {{ product.title }}
   </mat-expansion-panel-header>
+  <div class="product-image">
+    <img [src]="product.imagePath" [alt]="product.title">
+  </div>
   <p>{{ product.description }}</p>
   <p>price: {{ product.price }}</p>
   <mat-action-row>
