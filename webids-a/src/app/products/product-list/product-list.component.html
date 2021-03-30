@@ -17,6 +17,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 <mat-paginator
+  *ngIf="products.length > 0"
   [length]="totalProducts"
   [pageSize]="productsPerPage"
   [pageSizeOptions]="pageSizeOptions"
