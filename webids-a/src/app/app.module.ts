@@ -19,13 +19,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCreateComponent,
     HeaderComponent,
-    ProductListComponent
+    ProductListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
