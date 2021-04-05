@@ -1,6 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
     <mat-card-title>
       Webids
     </mat-card-title>
@@ -28,8 +28,7 @@
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password</mat-error>
     </mat-form-field>
     <mat-action-row>
-      <button mat-raised-button color="primary" type="submit">Login</button>
-      <a mat-stroked-button color="basic" routerLink="/signup" routerLinkActive="mat-accent">Register</a>
+      <button mat-raised-button color="primary" type="submit">Register</button>
     </mat-action-row>
   </form>
 </mat-card>

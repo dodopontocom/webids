@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoginComponent } from './auth/login/login.component';
     ProductCreateComponent,
     HeaderComponent,
     ProductListComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
