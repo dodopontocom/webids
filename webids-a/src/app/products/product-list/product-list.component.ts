@@ -4,6 +4,7 @@ import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthServive } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -18,9 +19,11 @@ export class ProductListComponent implements OnInit, OnDestroy{
   productsPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [1,2,5,10];
+  userIsAuthenticated = false;
   private productsSub: Subscription;
+  private authStatusSub: Subscription;
 
-  constructor(public productsService: ProductsService) {
+  constructor(public productsService: ProductsService, private authService: AuthServive) {
 
   }
 
@@ -33,6 +36,13 @@ export class ProductListComponent implements OnInit, OnDestroy{
         this.totalProducts = productData.productCount;
         this.products = productData.products;
       });
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      this.authStatusSub = this.authService
+        .getAuthStatusListener()
+        .subscribe(isAuthenticated => {
+          this.userIsAuthenticated = isAuthenticated;
+        });
+
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -51,6 +61,7 @@ export class ProductListComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.productsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }

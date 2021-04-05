@@ -29,7 +29,7 @@
     </mat-form-field>
     <mat-action-row>
       <button mat-raised-button color="primary" type="submit">Login</button>
-      <a mat-stroked-button color="basic" routerLink="/signup" routerLinkActive="mat-accent">Register</a>
+      <a mat-stroked-button color="basic" routerLink="/signup" routerLinkActive="mat-accent" *ngIf="!isLoading">Register</a>
     </mat-action-row>
   </form>
 </mat-card>

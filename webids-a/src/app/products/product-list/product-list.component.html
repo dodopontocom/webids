@@ -10,7 +10,7 @@
   </div>
   <p>{{ product.description }}</p>
   <p>price: {{ product.price }}</p>
-  <mat-action-row>
+  <mat-action-row *ngIf="userIsAuthenticated">
     <a mat-raised-button color="primary" [routerLink]="['/edit', product.id]">EDIT</a>
     <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
   </mat-action-row>
