@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <mat-accordion multi="true" *ngIf="products.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let product of products">
+  <mat-expansion-panel *ngFor="let product of products.slice().reverse()">
   <mat-expansion-panel-header>
     {{ product.title }}
   </mat-expansion-panel-header>
@@ -10,7 +10,7 @@
   </div>
   <p>{{ product.description }}</p>
   <p>price: {{ product.price }}</p>
-  <mat-action-row>
+  <mat-action-row *ngIf="userIsAuthenticated">
     <a mat-raised-button color="primary" [routerLink]="['/edit', product.id]">EDIT</a>
     <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
   </mat-action-row>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  GCP_EXTERNAL_IP: "34.67.38.113"
+  //GCP_EXTERNAL_IP: "34.67.38.113"
+  GCP_EXTERNAL_IP: "localhost"
 };
 
 /*
