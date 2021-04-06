@@ -45,7 +45,8 @@ export class ProductCreateComponent implements OnInit {
             title: productData.title,
             description: productData.description,
             price: productData.price,
-            imagePath: productData.imagePath
+            imagePath: productData.imagePath,
+            creator: productData.creator
           };
           this.form.setValue({
             title: this.product.title,

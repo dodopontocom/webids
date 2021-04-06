@@ -10,4 +10,5 @@ export interface Product {
   price: string;
   //bidded: {type: Boolean, default: false};
   //sold: {type: Boolean, default: false};
+  creator: string;
 }

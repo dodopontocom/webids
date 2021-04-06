@@ -33,7 +33,8 @@ export class ProductsService {
                 description: product.description,
                 price: product.price,
                 id: product._id,
-                imagePath: product.imagePath
+                imagePath: product.imagePath,
+                creator: product.creator
               };
             }),
             maxProducts: productData.maxProducts
@@ -59,6 +60,7 @@ export class ProductsService {
       title: string,
       description: string,
       price: string,
+      creator: string,
       imagePath: string }>(
         'http://'+ GCP_IP +':3000/api/v1/products/' + id);
   }
@@ -94,7 +96,8 @@ export class ProductsService {
         title: title,
         description: description,
         price: price,
-        imagePath: image
+        imagePath: image,
+        creator: null
       };
     }
 

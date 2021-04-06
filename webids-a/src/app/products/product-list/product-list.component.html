@@ -3,14 +3,14 @@
 <mat-accordion multi="true" *ngIf="products.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let product of products.slice().reverse()">
   <mat-expansion-panel-header>
-    {{ product.title }}
+    {{ product.title }} - added by {{ product.creator }}
   </mat-expansion-panel-header>
   <div class="product-image">
     <img [src]="product.imagePath" [alt]="product.title">
   </div>
   <p>{{ product.description }}</p>
   <p>price: {{ product.price }}</p>
-  <mat-action-row *ngIf="userIsAuthenticated">
+  <mat-action-row *ngIf="userIsAuthenticated && userId === product.creator">
     <a mat-raised-button color="primary" [routerLink]="['/edit', product.id]">EDIT</a>
     <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
   </mat-action-row>
