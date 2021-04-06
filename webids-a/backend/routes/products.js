@@ -37,7 +37,8 @@ router.post(
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
-      imagePath: url + "/images/" + req.file.filename
+      imagePath: url + "/images/" + req.file.filename,
+      creator: req.userData.userId
     });
     product.save().then(createdProduct => {
       console.log(createdProduct);
@@ -63,12 +64,17 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
     title: req.body.title,
     description: req.body.description,
     price: req.body.price,
-    imagePath: imagePath
+    imagePath: imagePath,
+    creator: req.userData.userId
   });
   console.log(product);
-  Product.updateOne({_id: req.params.id}, product).then(result => {
-    console.log(result);
-    res.status(200).json({ message: "Update successful"});
+  Product.updateOne({_id: req.params.id, creator: req.userData.userId}, product).then(result => {
+    if(result.nModified > 0) {
+      res.status(200).json({ message: "Update successful"});
+    } else {
+      res.status(401).json({ message: "Not authorized"});
+    }
+
   })
 });
 
@@ -109,9 +115,13 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Product.deleteOne({_id: req.params.id}).then(result => {
-    console.log(result)
-    res.status(200).json({ message: 'Product Deleted' });
+  Product.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
+    if(result.n > 0) {
+      res.status(200).json({ message: 'Product Deleted' });
+    } else {
+      res.status(401).json({ message: 'Not Authorized' });
+    }
+
   });
   console.log(req.params.id);
 });
