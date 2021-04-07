@@ -4,7 +4,7 @@ import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { AuthServive } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +24,7 @@ export class ProductListComponent implements OnInit, OnDestroy{
   private productsSub: Subscription;
   private authStatusSub: Subscription;
 
-  constructor(public productsService: ProductsService, private authService: AuthServive) {
+  constructor(public productsService: ProductsService, private authService: AuthService) {
 
   }
 

@@ -10,7 +10,7 @@ const GCP_IP = environment.GCP_EXTERNAL_IP;
 @Injectable({
   providedIn: "root"
 })
-export class AuthServive {
+export class AuthService {
 
   private isAuthenticated = false;
   private token: string;
@@ -39,21 +39,25 @@ export class AuthServive {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string, name: string, lastname: string) {
-    const authData: AuthData = {email: email, password: password, name: name, lastname: lastname};
+  createUser(email: string, password: string, name: string, lastname: string, createdAt: Date) {
+    const authData: AuthData = {email: email, password: password, name: name, lastname: lastname, createdAt: createdAt};
     this.http.post("http://" + GCP_IP + ":3000/api/v1/user/signup", authData)
       .subscribe(response =>{
-        console.log(response);
+        this.router.navigate(["/login"]);
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
+  login(email: string, password: string, lastLoginAt: Date) {
 
-  login(email: string, password: string) {
-    const authData: AuthData = {email: email, password: password, name: null, lastname: null};
-    this.http.post<{token: string, expiresIn: number, userId: string}>("http://" + GCP_IP + ":3000/api/v1/user/login", authData)
+    const authData: AuthData = {email: email, password: password, lastLoginAt: lastLoginAt};
+    this.http.post<{token: string, expiresIn: number, userId: string, lastLoginAt: Date}>("http://" + GCP_IP + ":3000/api/v1/user/login", authData)
       .subscribe(response => {
+        console.log(lastLoginAt);
         const token = response.token;
         this.token = token;
+
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -61,12 +65,16 @@ export class AuthServive {
           this.userId = response.userId;
           this.authStatusListener.next(true);
           const now = new Date();
-          const expirtaionDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirtaionDate, this.userId);
-          console.log(expirtaionDate);
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.saveAuthData(token, expirationDate, this.userId, lastLoginAt);
+
+          console.log(expirationDate);
+
           this.router.navigate(["/"]);
         }
 
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -103,16 +111,18 @@ export class AuthServive {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, lastLoginAt: Date) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
+    localStorage.setItem("lastLoginAt", lastLoginAt.toISOString());
   }
 
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
+    localStorage.removeItem("lastLoginAt");
   }
 
   private getAuthData() {

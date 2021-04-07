@@ -67,7 +67,7 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
     imagePath: imagePath,
     creator: req.userData.userId
   });
-  console.log(product);
+
   Product.updateOne({_id: req.params.id, creator: req.userData.userId}, product).then(result => {
     if(result.nModified > 0) {
       res.status(200).json({ message: "Update successful"});

@@ -18,7 +18,8 @@ router.post("/signup", (req, res, next) => {
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: hash
+        password: hash,
+        createdAt: new Date().toISOString()
     });
     user.save()
       .then(result => {
@@ -36,7 +37,12 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
+// router.put("/login", (req, res, next) => {
+//   console.log("rodolfo=========>");
+// });
+
 router.post("/login", (req, res, next) => {
+  console.log(req.params);
   let fetchedUser;
   User.findOne({
     email: req.body.email
