@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { environment } from "../../environments/environment"
+import { User } from "../users/user.model";
 import { AuthData } from "./auth-data.model";
 
 const GCP_IP = environment.GCP_EXTERNAL_IP;
@@ -49,6 +50,14 @@ export class AuthService {
       });
   }
 
+  updateUserLastLogin(lastLoginAt: Date) {
+    let userData: AuthData;
+
+    userData = {
+      lastLoginAt: lastLoginAt,
+    };
+  }
+
   login(email: string, password: string, lastLoginAt: Date) {
 
     const authData: AuthData = {email: email, password: password, lastLoginAt: lastLoginAt};
@@ -67,6 +76,9 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, lastLoginAt);
+
+          const updateLastLoginAt = new Date();
+          this.updateUserLastLogin(updateLastLoginAt);
 
           console.log(expirationDate);
 
