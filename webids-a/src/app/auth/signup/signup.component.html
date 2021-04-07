@@ -27,8 +27,19 @@
         required>
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Confirm Password"
+        ngModel
+        name="rePassword"
+        #rePasswordInput="ngModel"
+        required>
+    </mat-form-field>
     <mat-action-row>
-      <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Register</button>
+      <i *ngIf="rePasswordInput.value != passwordInput.value">Passwords must match!</i>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!isLoading && rePasswordInput.value != passwordInput.value">Register</button>
     </mat-action-row>
   </form>
 </mat-card>
