@@ -1,14 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 
 require('dotenv').config({
   path: __dirname + '/.env'
 });
 
 const User = require("../models/user");
-const user = require("../models/user");
 const { response } = require("express");
 
 const router = express.Router();
@@ -17,11 +15,14 @@ router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User ({
-      email: req.body.email,
-      password: hash
+        name: req.body.name,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: hash
     });
     user.save()
       .then(result => {
+        console.log(result);
         res.status(201).json({
           message: "User created",
           result: result

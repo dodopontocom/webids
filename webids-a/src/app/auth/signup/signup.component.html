@@ -36,8 +36,9 @@
         name="rePassword"
         #rePasswordInput="ngModel"
         required>
+    <mat-hint *ngIf="!rePasswordInput.value">Enter your password again</mat-hint>
     </mat-form-field>
-    <p>Personal Information</p>
+    <h3>Personal Information</h3>
     <hr>
     <mat-form-field>
       <input
@@ -45,7 +46,7 @@
         type="text"
         placeholder="First Name"
         ngModel
-        name="firstname"
+        name="name"
         #emailInput="ngModel"
         required>
     </mat-form-field>

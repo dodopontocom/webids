@@ -39,8 +39,8 @@ export class AuthServive {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = {email: email, password: password};
+  createUser(email: string, password: string, name: string, lastname: string) {
+    const authData: AuthData = {email: email, password: password, name: name, lastname: lastname};
     this.http.post("http://" + GCP_IP + ":3000/api/v1/user/signup", authData)
       .subscribe(response =>{
         console.log(response);
@@ -49,7 +49,7 @@ export class AuthServive {
 
 
   login(email: string, password: string) {
-    const authData: AuthData = {email: email, password: password};
+    const authData: AuthData = {email: email, password: password, name: null, lastname: null};
     this.http.post<{token: string, expiresIn: number, userId: string}>("http://" + GCP_IP + ":3000/api/v1/user/login", authData)
       .subscribe(response => {
         const token = response.token;
