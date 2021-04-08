@@ -7,7 +7,6 @@ require('dotenv').config({
 });
 
 const User = require("../models/user");
-const { response } = require("express");
 
 const router = express.Router();
 
