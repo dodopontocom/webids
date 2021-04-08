@@ -49,6 +49,11 @@ router.post(
           id: createdProduct._id
         }
     });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Creating product failed"
+    });
   });
 });
 
@@ -68,15 +73,21 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
     creator: req.userData.userId
   });
 
-  Product.updateOne({_id: req.params.id, creator: req.userData.userId}, product).then(result => {
-    if(result.nModified > 0) {
-      res.status(200).json({ message: "Update successful"});
-    } else {
-      res.status(401).json({ message: "Not authorized"});
-    }
-
-  })
-});
+  Product.updateOne({_id: req.params.id, creator: req.userData.userId}, product)
+    .then(result => {
+      if(result.nModified > 0) {
+        res.status(200).json({ message: "Update successful"});
+      } else {
+        res.status(401).json({ message: "Not authorized"});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Could not update product"
+      });
+    });
+  }
+);
 
 router.get("", (req, res, next) => {
   const pageSize = +req.query.pagesize; // + sign convert to numbers
@@ -92,14 +103,20 @@ router.get("", (req, res, next) => {
   productQuery.find()
     .then(documents => {
       fetchedProducts = documents;
-      return Product.count();
       console.log(documents)
+      return Product.count();
+
     })
     .then(count => {
       res.status(200).json({
         message: "Products fetched successfully",
         products: fetchedProducts,
         maxProducts: count
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching Products failed"
       });
     });
 });
@@ -111,19 +128,28 @@ router.get("/:id", (req, res, next) => {
     } else {
       res.status(404).json({message: "Product no found"});
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Fetching Product failed"
+    });
   });
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Product.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
+  Product.deleteOne({_id: req.params.id, creator: req.userData.userId})
+  .then(result => {
     if(result.n > 0) {
       res.status(200).json({ message: 'Product Deleted' });
     } else {
       res.status(401).json({ message: 'Not Authorized' });
     }
-
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Deleting Products failed"
+    });
   });
-  console.log(req.params.id);
 });
 
 module.exports = router;

@@ -59,6 +59,8 @@ export class ProductListComponent implements OnInit, OnDestroy{
     this.isLoading = true;
     this.productsService.deleteProduct(productId).subscribe(() => {
       this.productsService.getProducts(this.productsPerPage, this.currentPage);
+    }, () => {
+      this.isLoading = false;
     });
   }
 
