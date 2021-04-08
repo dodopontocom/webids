@@ -44,7 +44,7 @@ export class AuthService {
     const authData: AuthData = {email: email, password: password, name: name, lastname: lastname, createdAt: createdAt};
     this.http.post("http://" + GCP_IP + ":3000/api/v1/user/signup", authData)
       .subscribe(response =>{
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/auth/login"]);
       }, error => {
         this.authStatusListener.next(false);
       });
