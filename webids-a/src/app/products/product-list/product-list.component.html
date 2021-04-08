@@ -5,15 +5,31 @@
   <mat-expansion-panel-header>
     {{ product.title }} - added by {{ product.creator }}
   </mat-expansion-panel-header>
-  <div class="product-image">
-    <img [src]="product.imagePath" [alt]="product.title">
+  <div>
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <div>
+          <img [src]="product.imagePath" [alt]="product.title">
+        </div>
+        <div>
+          <img [src]="product.imagePath" [alt]="product.title">
+        </div>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <p class="wrapper">{{ product.description }}</p>
+        <p>price: {{ product.price }}</p>
+
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-action-row *ngIf="userIsAuthenticated && userId === product.creator">
+      <a mat-raised-button color="primary" [routerLink]="['/edit', product.id]">EDIT</a>
+      <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
+    </mat-action-row>
+
   </div>
-  <p>{{ product.description }}</p>
-  <p>price: {{ product.price }}</p>
-  <mat-action-row *ngIf="userIsAuthenticated && userId === product.creator">
-    <a mat-raised-button color="primary" [routerLink]="['/edit', product.id]">EDIT</a>
-    <button mat-raised-button color="warn" (click)="onDelete(product.id)">DELETE</button>
-  </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 <mat-paginator
