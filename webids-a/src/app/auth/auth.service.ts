@@ -3,10 +3,9 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { environment } from "../../environments/environment"
-import { User } from "../users/user.model";
 import { AuthData } from "./auth-data.model";
 
-const GCP_IP = environment.GCP_EXTERNAL_IP;
+const API_HOST = environment.API_TESTING_HOST;
 
 @Injectable({
   providedIn: "root"
@@ -42,7 +41,7 @@ export class AuthService {
 
   createUser(email: string, password: string, name: string, lastname: string, createdAt: Date) {
     const authData: AuthData = {email: email, password: password, name: name, lastname: lastname, createdAt: createdAt};
-    this.http.post("http://" + GCP_IP + ":3000/api/v1/user/signup", authData)
+    this.http.post( API_HOST + "/user/signup", authData)
       .subscribe(response =>{
         this.router.navigate(["/auth/login"]);
       }, error => {
@@ -61,7 +60,7 @@ export class AuthService {
   login(email: string, password: string, lastLoginAt: Date) {
 
     const authData: AuthData = {email: email, password: password, lastLoginAt: lastLoginAt};
-    this.http.post<{token: string, expiresIn: number, userId: string, lastLoginAt: Date}>("http://" + GCP_IP + ":3000/api/v1/user/login", authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, lastLoginAt: Date}>(API_HOST + "/user/login", authData)
       .subscribe(response => {
         console.log(lastLoginAt);
         const token = response.token;
