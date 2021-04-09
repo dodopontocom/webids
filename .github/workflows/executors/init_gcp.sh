@@ -20,5 +20,11 @@ then
     else
         gcloud services enable storage.googleapis.com
 fi
+if [[ $(gcloud services list --enabled | grep appengine.googleapis.com) ]]
+then
+    echo "gae api is enabled"
+    else
+        gcloud services enable appengine.googleapis.com
+fi
 
 gcloud iam service-accounts list
