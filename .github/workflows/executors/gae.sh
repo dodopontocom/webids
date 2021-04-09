@@ -5,7 +5,7 @@
 source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
 echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH}
 
-APP_PATH="${GITHUB_WORKSPACE}/${PROJECT_ID}/${PROJECT_ID}-a"
+APP_PATH="${GITHUB_WORKSPACE}/${PROJECT_ID}-a"
 
 echo ${WEBIDS_GCP_SA} > ${APP_PATH}/backend/keyfile.json
 
