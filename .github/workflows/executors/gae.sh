@@ -37,7 +37,7 @@ echo "JWT_USER_PASS_LONG_SECRET=\"${JWT_USER_PASS_LONG_SECRET}\"" >> ${APP_PATH}
 #gcp.useProject "${GCLOUD_PROJECT_ID}"
 gcloud config set gcloudignore/enabled false
 cd ${APP_PATH}/backend
-gcloud --quiet app deploy "app.yaml" --version "v1"
+gcloud --quiet app deploy "app.yaml" --version "v0-1-1"
 
 #gcp.auth.revokeSA "${GOOGLE_APPLICATION_CREDENTIALS}"
 #gcloud auth revoke "${GCLOUD_SA_EMAIL}"
