@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment'
 import { Router } from '@angular/router';
 
 const API_HOST = environment.API_TESTING_HOST + "/products/";
+const GCP_BUCKET_URL = environment.GCLOUD_APP_BUCKET;
 
 @Injectable({providedIn: 'root'})
 export class ProductsService {
@@ -33,7 +34,7 @@ export class ProductsService {
                 description: product.description,
                 price: product.price,
                 id: product._id,
-                imagePath: product.imagePath,
+                imagePath: GCP_BUCKET_URL + product.imagePath,
                 creator: product.creator
               };
             }),
