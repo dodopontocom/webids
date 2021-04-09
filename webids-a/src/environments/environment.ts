@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //GCP_EXTERNAL_IP: "34.67.38.113"
-  GCP_EXTERNAL_IP: "localhost"
+  //API_TESTING_HOST: "http://34.67.38.113:3000/api/v1"
+  API_TESTING_HOST: "http://localhost:3000/api/v1"
 };
 
 /*

@@ -1,8 +1,8 @@
-export interface AuthData {
-  email?: string;
-  password?: string;
+export interface User {
   name?: string;
   lastname?: string;
+  email?: string;
+  password?: string;
   createdAt?: Date;
   lastLoginAt?: Date;
 }

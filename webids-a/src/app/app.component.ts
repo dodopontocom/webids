@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServive } from './auth/auth.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +7,12 @@ import { AuthServive } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  constructor(private authServive: AuthServive) {
+  constructor(private authService: AuthService) {
 
   }
 
   ngOnInit() {
-    this.authServive.autoAuthUser();
+    this.authService.autoAuthUser();
   }
 
 }

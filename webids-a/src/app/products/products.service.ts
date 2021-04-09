@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment'
 import { Router } from '@angular/router';
 
-const GCP_IP = environment.GCP_EXTERNAL_IP
+const API_HOST = environment.API_TESTING_HOST + "/products/";
 
 @Injectable({providedIn: 'root'})
 export class ProductsService {
@@ -23,7 +23,7 @@ export class ProductsService {
 
     //this.http.get<{mesage: string, products: Product[]}>('http:localhost:3000/api/v1/products')
     this.http
-      .get<{mesage: string, products: any; maxProducts: number }>('http://' + GCP_IP + ':3000/api/v1/products' + queryParams)
+      .get<{mesage: string, products: any; maxProducts: number }>(API_HOST + queryParams)
       .pipe(
         map(productData => {
           return {
@@ -62,7 +62,7 @@ export class ProductsService {
       price: string,
       creator: string,
       imagePath: string }>(
-        'http://'+ GCP_IP +':3000/api/v1/products/' + id);
+        API_HOST + id);
   }
 
   addProduct(title: string,
@@ -75,7 +75,7 @@ export class ProductsService {
       productData.append("price", price);
       productData.append("image", image, title);
       this.http
-        .post<{ message: string, product: Product }>('http://'+ GCP_IP +':3000/api/v1/products', productData)
+        .post<{ message: string, product: Product }>(API_HOST, productData)
         .subscribe((responseData) => {
           this.router.navigate(["/"]);
         });
@@ -102,7 +102,7 @@ export class ProductsService {
     }
 
     this.http
-      .put('http://'+ GCP_IP +':3000/api/v1/products/' + id, productData)
+      .put(API_HOST + id, productData)
       .subscribe(response => {
         this.router.navigate(["/"]);
       });
@@ -110,6 +110,6 @@ export class ProductsService {
   }
 
   deleteProduct(productId: string) {
-    return this.http.delete('http://'+ GCP_IP +':3000/api/v1/products/' + productId);
+    return this.http.delete(API_HOST + productId);
   }
 }

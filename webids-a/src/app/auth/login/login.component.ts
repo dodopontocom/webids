@@ -1,30 +1,42 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { AuthServive } from "../auth.service";
+import { Subscription } from "rxjs";
+import { AuthService } from "../auth.service";
 
 @Component({
   templateUrl:'./login.component.html',
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   isLoading = false;
+  private authStatusSub: Subscription;
 
-  constructor(public authServive: AuthServive) {
+  constructor(public authService: AuthService) {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
+  }
 
   onLogin(form: NgForm) {
 
-    console.log(form.value);
     if(form.invalid) {
       return;
     }
     this.isLoading = true;
-    this.authServive.login(form.value.email, form.value.password);
+    const lastLoginAt: Date = new Date();
+    this.authService.login(form.value.email, form.value.password, lastLoginAt);
+
+  }
+
+  ngOnDestroy() {
 
   }
 

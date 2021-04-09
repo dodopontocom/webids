@@ -17,3 +17,8 @@ button {
   margin-right: 5px;
   align-self: auto;
 }
+
+mat-hint {
+  align-self: auto;
+  font-size: 10px;
+}

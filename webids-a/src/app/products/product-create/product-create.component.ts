@@ -1,17 +1,19 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, Output, OnInit, OnDestroy } from '@angular/core';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from '../product.model';
 import { mimeType } from './mime-type.validator'
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-product-create',
   templateUrl:'./product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
-export class ProductCreateComponent implements OnInit {
+export class ProductCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
   enteredDescription = "";
   enteredPrice = "";
@@ -23,11 +25,18 @@ export class ProductCreateComponent implements OnInit {
   private mode = "create";
   private productId: string;
 
-  constructor(public productsService: ProductsService, public route: ActivatedRoute){
+  private authStatusSub: Subscription;
+
+  constructor(public productsService: ProductsService, public route: ActivatedRoute, private authService: AuthService){
 
   }
 
   ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
     this.form = new FormGroup({
       title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       description: new FormControl(null, {validators: [Validators.required, Validators.minLength(8)]}),
@@ -98,5 +107,9 @@ export class ProductCreateComponent implements OnInit {
       );
     }
     this.form.reset();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }
