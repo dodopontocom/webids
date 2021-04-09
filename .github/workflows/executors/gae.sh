@@ -30,9 +30,9 @@ echo "MONGO_ATLAS_STRING=\"${MONGO_ATLAS_STRING}\"" > ${APP_PATH}/backend/.env
 echo "JWT_USER_PASS_LONG_SECRET=\"${JWT_USER_PASS_LONG_SECRET}\"" >> ${APP_PATH}/backend/.env
 #echo "GCLOUD_STORAGE_BASE_URL=\"${GCLOUD_STORAGE_BASE_URL}\"" >> ${APP_PATH}/backend/.env
 #echo "REF_IMOVEL_PREFIX=\"${REF_IMOVEL_PREFIX}\"" >> ${APP_PATH}/backend/.env
-#echo "GCS_BUCKET=\"${GCLOUD_APP_BUCKET_NAME}\"" >> ${APP_PATH}/backend/.env
-#echo "GCLOUD_PROJECT=\"${GCLOUD_PROJECT_ID}\"" >> ${APP_PATH}/backend/.env
-#echo "GCS_KEYFILE=\"./keyfile.json\"" >> ${APP_PATH}/backend/.env
+echo "GCS_BUCKET=\"${GCLOUD_APP_BUCKET_NAME}\"" >> ${APP_PATH}/backend/.env
+echo "GCLOUD_PROJECT=\"${GCLOUD_PROJECT_ID}\"" >> ${APP_PATH}/backend/.env
+echo "GCS_KEYFILE=\"./keyfile.json\"" >> ${APP_PATH}/backend/.env
 
 #gcp.useProject "${GCLOUD_PROJECT_ID}"
 gcloud config set gcloudignore/enabled false
