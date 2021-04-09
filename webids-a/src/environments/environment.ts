@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   //API_TESTING_HOST: "http://34.67.38.113:3000/api/v1"
   API_TESTING_HOST: "http://localhost:3000/api/v1",
-  GCLOUD_APP_BUCKET: "https://storage.cloud.google.com/web-construtora-cp-bucket/images/"
+  GCLOUD_APP_BUCKET: "https://storage.cloud.google.com/web-construtora-cp-bucket/"
 };
 
 /*
