@@ -5,6 +5,8 @@
 source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
 echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH}
 
+app_gae_version=${1}
+
 APP_PATH="${GITHUB_WORKSPACE}/${PROJECT_ID}-a"
 
 echo ${WEBIDS_GCP_SA} > ${APP_PATH}/backend/keyfile.json
@@ -37,7 +39,7 @@ echo "GCS_KEYFILE=\"./keyfile.json\"" >> ${APP_PATH}/backend/.env
 #gcp.useProject "${GCLOUD_PROJECT_ID}"
 gcloud config set gcloudignore/enabled false
 cd ${APP_PATH}/backend
-gcloud --quiet app deploy "app.yaml" --version "develop"
+gcloud --quiet app deploy "app.yaml" --version "${app_gae_version}"
 
 #gcp.auth.revokeSA "${GOOGLE_APPLICATION_CREDENTIALS}"
 #gcloud auth revoke "${GCLOUD_SA_EMAIL}"
