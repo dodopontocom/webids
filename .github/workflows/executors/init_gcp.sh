@@ -27,4 +27,6 @@ then
         gcloud services enable appengine.googleapis.com
 fi
 
+#gsutil defacl set public-read gs://webids-bucket
+
 gcloud iam service-accounts list
