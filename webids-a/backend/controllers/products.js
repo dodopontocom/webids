@@ -8,7 +8,7 @@ exports.createProduct = (req, res, next) => {
       description: req.body.description,
       price: req.body.price,
       // imagePath: url + "/images/" + req.file.filename,
-      imagePath: req.userData.userId + "_" + req.file.filename,
+      imagePath: req.file.filename,
       creator: req.userData.userId
     });
     product.save().then(createdProduct => {
@@ -34,7 +34,7 @@ exports.updateProduct = (req, res, next) => {
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
     // imagePath = url + "/images/" + req.file.filename;
-    imagePath = req.userData.userId + "_" + req.file.filename;
+    imagePath = req.file.filename;
   }
   const product = new Product({
     _id: req.body.id,
