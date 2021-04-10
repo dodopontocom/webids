@@ -29,6 +29,7 @@ export class ProductsService {
         map(productData => {
           return {
             products: productData.products.map(product => {
+              console.log(product.imagePath);
               return {
                 title: product.title,
                 description: product.description,
