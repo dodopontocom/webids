@@ -56,8 +56,8 @@ jobs:
     - name: deploy app
       run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/executors/gae.sh"
-          "${GITHUB_WORKSPACE}/.github/workflows/executors/gae.sh" "${GITHUB_REF##*/}"
-        
+          "${GITHUB_WORKSPACE}/.github/workflows/executors/gae.sh"
+          
   terraform:
     name: Terraform
     needs: setup
