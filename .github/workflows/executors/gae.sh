@@ -5,7 +5,7 @@
 source ${GITHUB_WORKSPACE}/.github/workflows/cicd-definitions.sh
 echo "${WEBIDS_GCP_SA}" > ${GCLOUD_JSON_KEY_PATH}
 
-app_gae_version=${1}
+app_gae_version="${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}"
 
 APP_PATH="${GITHUB_WORKSPACE}/${PROJECT_ID}-a"
 
