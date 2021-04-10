@@ -75,7 +75,8 @@ export class ProductsService {
       productData.append("title", title);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("image", image, title);
+      productData.append("image", image, title
+        .toLowerCase().split(" ").join("-"));
       this.http
         .post<{ message: string, product: Product }>(API_HOST, productData)
         .subscribe((responseData) => {
@@ -91,7 +92,8 @@ export class ProductsService {
       productData.append("title", title);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("image", image, title);
+      productData.append("image", image, title
+        .toLowerCase().split(" ").join("-"));
     } else {
       productData = {
         id: id,
