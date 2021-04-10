@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment'
 import { Router } from '@angular/router';
 
 const API_HOST = environment.API_TESTING_HOST + "/products/";
+const GCP_BUCKET_URL = environment.GCLOUD_APP_BUCKET;
 
 @Injectable({providedIn: 'root'})
 export class ProductsService {
@@ -28,12 +29,13 @@ export class ProductsService {
         map(productData => {
           return {
             products: productData.products.map(product => {
+              console.log(product.imagePath);
               return {
                 title: product.title,
                 description: product.description,
                 price: product.price,
                 id: product._id,
-                imagePath: product.imagePath,
+                imagePath: GCP_BUCKET_URL + product.imagePath,
                 creator: product.creator
               };
             }),
@@ -73,7 +75,8 @@ export class ProductsService {
       productData.append("title", title);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("image", image, title);
+      productData.append("image", image, title
+        .toLowerCase().split(" ").join("-"));
       this.http
         .post<{ message: string, product: Product }>(API_HOST, productData)
         .subscribe((responseData) => {
@@ -89,7 +92,8 @@ export class ProductsService {
       productData.append("title", title);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("image", image, title);
+      productData.append("image", image, title
+        .toLowerCase().split(" ").join("-"));
     } else {
       productData = {
         id: id,

@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+require('dotenv').config();
 
 exports.createProduct = (req, res, next) => {
     const url = req.protocol + '://' + req.get("host");
@@ -6,7 +7,8 @@ exports.createProduct = (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
-      imagePath: url + "/images/" + req.file.filename,
+      // imagePath: url + "/images/" + req.file.filename,
+      imagePath: req.file.filename,
       creator: req.userData.userId
     });
     product.save().then(createdProduct => {
@@ -31,7 +33,8 @@ exports.updateProduct = (req, res, next) => {
   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
+    // imagePath = url + "/images/" + req.file.filename;
+    imagePath = req.file.filename;
   }
   const product = new Product({
     _id: req.body.id,

@@ -7,3 +7,5 @@
 | +-- terraform  
 | +-- scripts  
 | +-- credentials  
+
+`.env.file.exaple` (hint) 
