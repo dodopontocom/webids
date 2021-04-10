@@ -27,6 +27,19 @@ const storage = multer.diskStorage({
 });
 
 const uploadHandler = multer({
+  destination: (req, file, cb) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error("Invalid mime type");
+    if (isValid) {
+      error = null;
+    }
+    cb(error, "/tmp");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  },
   storage: multerGoogleStorage.storageEngine({
     acl: "publicread"
   })
