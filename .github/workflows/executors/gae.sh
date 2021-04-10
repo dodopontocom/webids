@@ -37,7 +37,7 @@ echo "GCS_KEYFILE=\"./keyfile.json\"" >> ${APP_PATH}/backend/.env
 #gcp.useProject "${GCLOUD_PROJECT_ID}"
 gcloud config set gcloudignore/enabled false
 cd ${APP_PATH}/backend
-gcloud --quiet app deploy "app.yaml" --version "v0-1-1"
+gcloud --quiet app deploy "app.yaml" --version "develop"
 
 #gcp.auth.revokeSA "${GOOGLE_APPLICATION_CREDENTIALS}"
 #gcloud auth revoke "${GCLOUD_SA_EMAIL}"

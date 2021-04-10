@@ -46,6 +46,7 @@ const uploadHandler = multer({
       const ext = MIME_TYPE_MAP[file.mimetype];
       cb(null, name + '-' + Date.now() + '.' + ext);
     },
+    filename: this.getFilename(),
     acl: "publicread"
   })
 });
